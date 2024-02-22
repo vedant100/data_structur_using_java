@@ -158,6 +158,5 @@ public class Main {
        System.out.println("Count of total nodes in tree : " +binaryTree.countNodes(rootNode));
        System.out.println("Sum of total nodes in tree : " +binaryTree.sumOfNodes(rootNode));
        System.out.println("height of tree is : " +binaryTree.heightOfTree(rootNode));
-
    }
 }
