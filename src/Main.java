@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 //git hub token - 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
 
@@ -136,6 +134,17 @@ public class Main {
            }
        }
 
+       public static int diameter(Node node){
+           if(node == null){
+               return 0;
+           }
+           int leftDia = diameter(node.left);
+           int rightDia = diameter(node.right);
+           int currentDia = heightOfTree(node.left) + heightOfTree(node.right) + 1;
+           int maxDia = Math.max(Math.max(leftDia, rightDia), currentDia);
+           return maxDia;
+       }
+
    }
 
    public static void main(String[] args){
@@ -159,5 +168,6 @@ public class Main {
        System.out.println("Count of total nodes in tree : " +binaryTree.countNodes(rootNode));
        System.out.println("Sum of total nodes in tree : " +binaryTree.sumOfNodes(rootNode));
        System.out.println("height of tree is : " +binaryTree.heightOfTree(rootNode));
+       System.out.println("Diameter of tree " + binaryTree.diameter(rootNode));
    }
 }
