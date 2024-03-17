@@ -1,11 +1,11 @@
 import java.util.Objects;
 
 public class LinkListOperations {
-    node head=null;
-    node hare = head;
-    node turtle = head;
+    LinkListNode head=null;
+    LinkListNode hare = head;
+    LinkListNode turtle = head;
     public void printLL(){
-        node temp = head;
+        LinkListNode temp = head;
         System.out.println();
         while(temp.next!=null){
             System.out.print(temp.data+ " ==> ");
@@ -16,31 +16,31 @@ public class LinkListOperations {
     }
     public void createNode(int data){
         if(head == null ){
-            head= new node(data);
+            head= new LinkListNode(data);
         }
         else{
-            node temp = head;
+            LinkListNode temp = head;
             while(temp.next!=null){
                 temp = temp.next;
             }
-            temp.next = new node(data);
+            temp.next = new LinkListNode(data);
         }
         printLL();
     }
 
     public void deleteNode(int data){
         if(head == null){
-            System.out.println("\n Please enter the node 1st");
+            System.out.println("\n Please enter the LinkListNode 1st");
         }
         else{
             if(head.data == data){
-                node temp1 = head;
+                LinkListNode temp1 = head;
                 head = head.next;
                 temp1 = null;
             }
             else{
-                node temp2 = head;
-                node temp3;
+                LinkListNode temp2 = head;
+                LinkListNode temp3;
                 int flag = 0;
                 while(temp2.next!=null){
                     if(temp2.next.data == data){
@@ -63,29 +63,29 @@ public class LinkListOperations {
 
     public void insertNode(int dataFirst, int data){
        if(head.data == dataFirst){
-           node newHead = new node(data);
+           LinkListNode newHead = new LinkListNode(data);
            newHead.next = head;
            head = newHead;
        }
        else{
-           node temp = head;
+           LinkListNode temp = head;
            while(temp.next!= null){
                if(temp.data == dataFirst){
-                   node temp2 = temp.next;
-                   temp.next = new node(data);
+                   LinkListNode temp2 = temp.next;
+                   temp.next = new LinkListNode(data);
                    temp.next.next = temp2;
                }
                temp = temp.next;
            }
            if(temp.data == dataFirst){
-               temp.next = new node(data);
+               temp.next = new LinkListNode(data);
            }
        }
         printLL();
     }
 
-    public node getMiddle(){
-        node turtle=head, hare=head;
+    public LinkListNode getMiddle(){
+        LinkListNode turtle=head, hare=head;
         while( hare.next!=null && hare.next.next!=null ){
             hare = hare.next.next;
             turtle= turtle.next;
@@ -93,12 +93,12 @@ public class LinkListOperations {
         return turtle;
     }
 
-    public node reverseFromMiddle(){
-        node middle = getMiddle();
-        node temp = middle.next.next;
-        node current = middle.next;
+    public LinkListNode reverseFromMiddle(){
+        LinkListNode middle = getMiddle();
+        LinkListNode temp = middle.next.next;
+        LinkListNode current = middle.next;
         while(temp.next != null){
-            node temp2 = temp.next;
+            LinkListNode temp2 = temp.next;
             temp.next = current;
             current = temp;
             temp = temp2;
@@ -109,8 +109,8 @@ public class LinkListOperations {
     }
 
     public boolean isPalindrom(){
-        node secondHead  = reverseFromMiddle();
-        node firstHead = head;
+        LinkListNode secondHead  = reverseFromMiddle();
+        LinkListNode firstHead = head;
         boolean result = true;
         while(secondHead!=null){
             if(secondHead.data != firstHead.data){
@@ -121,8 +121,8 @@ public class LinkListOperations {
         }
         return result;
     }
-    public node findNode(int data){
-        node n1 = null;
+    public LinkListNode findNode(int data){
+        LinkListNode n1 = null;
         n1 = head;
         while(n1.data != data && n1!=null){
             n1 = n1.next;
@@ -134,8 +134,8 @@ public class LinkListOperations {
     }
 
     public String createCycle(int from, int to){
-        node n1 = findNode(from);
-        node n2 = findNode(to);
+        LinkListNode n1 = findNode(from);
+        LinkListNode n2 = findNode(to);
         String result;
         if(n1!=null && n2!=null){
             n1.next = n2;
@@ -148,7 +148,7 @@ public class LinkListOperations {
     }
 
     public String detectCycle(){
-        node head=this.head;
+        LinkListNode head=this.head;
         hare = head;
         turtle = head;
         hare = hare.next.next;
@@ -165,8 +165,8 @@ public class LinkListOperations {
 
     public String removeCycle(){
         if(Objects.equals(detectCycle(), "Cycle present")){
-            node head = this.head;
-            node preTurtle = null;
+            LinkListNode head = this.head;
+            LinkListNode preTurtle = null;
             while(head != turtle){
                 head = head.next;
                 preTurtle = turtle;
@@ -183,9 +183,9 @@ public class LinkListOperations {
         }
     }
     public void reverseList() {
-        node mainHead = head;
-        node n1 = mainHead.next;
-        node n2 = mainHead.next.next;
+        LinkListNode mainHead = head;
+        LinkListNode n1 = mainHead.next;
+        LinkListNode n2 = mainHead.next.next;
         mainHead.next = null;
         while(n2 != null ){
             n1.next = mainHead;

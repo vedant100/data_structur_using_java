@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
+//git hub token - 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
 
 public class Main {
    public static class Node{
@@ -135,12 +134,60 @@ public class Main {
            }
        }
 
-   }
+       public static int diameter(Node node){
+           if(node == null){
+               return 0;
+           }
+           int leftDia = diameter(node.left);
+           int rightDia = diameter(node.right);
+           int currentDia = heightOfTree(node.left) + heightOfTree(node.right) + 1;
+           int maxDia = Math.max(Math.max(leftDia, rightDia), currentDia);
+           return maxDia;
+       }
 
+       public static boolean checkSubTree(Node rootNode, Node subTreeRootNode){
+           if(subTreeRootNode!=null && rootNode!=null){
+               if( subTreeRootNode.data == rootNode.data ){
+                   if(isIdentical(rootNode, subTreeRootNode) == true){
+                       return true;
+                   }
+               }
+               else{
+                  boolean resultLeft = checkSubTree(rootNode.left, subTreeRootNode);
+                  boolean resultRight =  checkSubTree(rootNode.right, subTreeRootNode);
+                  if(resultLeft == true || resultRight == true){
+                      return true;
+                  }
+               }
+           }
+           return false;
+       }
+       public static boolean isIdentical(Node rootNode, Node subTreeRootNode){
+            if(rootNode == null && subTreeRootNode == null){
+                return true;
+            }
+            else if(rootNode == null || subTreeRootNode == null){
+                return false;
+            }
+            else if(rootNode.data == subTreeRootNode.data){
+                boolean result1 = isIdentical(rootNode.left, subTreeRootNode.left);
+                boolean result2 =isIdentical(rootNode.right, subTreeRootNode.right);
+                if(result1  && result2){
+                    return true;
+                }
+            }
+            return false;
+       };
+
+   }
    public static void main(String[] args){
        int[] input = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, 7, 8,-1,-1,-1,-1};
        BinaryTree binaryTree = new BinaryTree();
        Node rootNode = binaryTree.buildTree(input);
+       binaryTree.index = -1;
+       int[] subTree = {3, -1, 6, 7, 8,-1,-1,-1, -1};
+       Node subTreeRootNode = binaryTree.buildTree(subTree);
+
        System.out.println("preOrder (Node left right)");
        binaryTree.preOrder(rootNode);
        System.out.println();
@@ -158,5 +205,7 @@ public class Main {
        System.out.println("Count of total nodes in tree : " +binaryTree.countNodes(rootNode));
        System.out.println("Sum of total nodes in tree : " +binaryTree.sumOfNodes(rootNode));
        System.out.println("height of tree is : " +binaryTree.heightOfTree(rootNode));
+       System.out.println("Diameter of tree " + binaryTree.diameter(rootNode));
+       System.out.println("Check sub tree " + binaryTree.checkSubTree(rootNode, subTreeRootNode));
    }
 }
